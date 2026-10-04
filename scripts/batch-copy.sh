@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 
-# Task 08: this script is intentionally buggy.
-# Usage: ./scripts/batch-copy.sh DEST FILE...
-
-destination=$1
+# 第一个参数是目标目录
+DEST="$1"
+# 把第一个参数从参数列表里移除，剩下的全是要复制的文件
 shift
 
-mkdir -p $destination
+# 自动创建目标目录，不存在就新建
+mkdir -p "$DEST"
 
-for file in $@
-do
-    cp $file $destination/
+# 用"$@"遍历所有传入的文件，自动保留带空格的完整文件名，不会拆分
+for file in "$@"; do
+  # 每个变量都加双引号包裹，彻底避免空格拆分问题
+  cp "$file" "$DEST"
 done
